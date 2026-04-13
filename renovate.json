@@ -1,39 +1,43 @@
 {
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
   "dependencyDashboardApproval": true,
   "labels": ["PR: Dependency ⬆️", "repo automation 🤖"],
   "postUpdateOptions": ["yarnDedupeHighest"],
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": ["^Makefile$"],
-      "matchStrings": ["TEST262_COMMIT = (?<currentDigest>.*)\\n"],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Makefile$/"],
+      "matchStrings": ["TEST262_COMMIT = (?<currentDigest>.*)\n"],
       "datasourceTemplate": "git-refs",
       "depNameTemplate": "tests-test262",
-      "lookupNameTemplate": "https://github.com/tc39/test262.git",
+      "packageNameTemplate": "https://github.com/tc39/test262.git",
       "currentValueTemplate": "main"
     },
     {
-      "fileMatch": ["^Makefile$"],
-      "matchStrings": ["FLOW_COMMIT = (?<currentDigest>.*)\\n"],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Makefile$/"],
+      "matchStrings": ["FLOW_COMMIT = (?<currentDigest>.*)\n"],
       "datasourceTemplate": "git-refs",
       "depNameTemplate": "tests-flow",
-      "lookupNameTemplate": "https://github.com/facebook/flow.git",
+      "packageNameTemplate": "https://github.com/facebook/flow.git",
       "currentValueTemplate": "master"
     },
     {
-      "fileMatch": ["^Makefile$"],
-      "matchStrings": ["TYPESCRIPT_COMMIT = (?<currentDigest>.*)\\n"],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Makefile$/"],
+      "matchStrings": ["TYPESCRIPT_COMMIT = (?<currentDigest>.*)\n"],
       "datasourceTemplate": "git-refs",
       "depNameTemplate": "tests-typescript",
-      "lookupNameTemplate": "https://github.com/Microsoft/TypeScript.git",
+      "packageNameTemplate": "https://github.com/Microsoft/TypeScript.git",
       "currentValueTemplate": "main"
     },
     {
-      "fileMatch": ["^Makefile$"],
-      "matchStrings": ["COMPAT_TABLE_COMMIT=(?<currentDigest>.*)\\n"],
+      "customType": "regex",
+      "managerFilePatterns": ["/^Makefile$/"],
+      "matchStrings": ["COMPAT_TABLE_COMMIT=(?<currentDigest>.*)\n"],
       "datasourceTemplate": "git-refs",
       "depNameTemplate": "compat-table",
-      "lookupNameTemplate": "https://github.com/kangax/compat-table.git",
+      "packageNameTemplate": "https://github.com/kangax/compat-table.git",
       "currentValueTemplate": "gh-pages"
     }
   ],
@@ -47,16 +51,16 @@
       ]
     },
     {
-      "matchPackagePatterns": ["^eslint"],
-      "groupName": "eslint packages"
+      "groupName": "eslint packages",
+      "matchPackageNames": ["/^eslint/"]
     },
     {
-      "matchPackagePatterns": ["^rollup", "^@rollup"],
-      "groupName": "rollup packages"
+      "groupName": "rollup packages",
+      "matchPackageNames": ["/^rollup/", "/^@rollup/"]
     },
     {
-      "matchPackagePatterns": ["^gulp"],
-      "groupName": "gulp packages"
+      "groupName": "gulp packages",
+      "matchPackageNames": ["/^gulp/"]
     },
     {
       "matchPackageNames": ["tests-test262", "tests-flow", "tests-typescript"],
